@@ -1,0 +1,40 @@
+[
+  {
+    "id": "u1",
+    "name": "Administrator Pegasus",
+    "email": "admin@fitable.com",
+    "role": "admin",
+    "avatar": "AD",
+    "password": "password"
+  },
+  {
+    "name": "Test Admin",
+    "email": "testadmin@pegasus.com",
+    "password": "$2a$10$l90x3sz4G9qzFRZH4WFpou8b7ZSCuWaEfCCTnVCDB1hHtv2CcTFRm",
+    "role": "member",
+    "avatar": "TA",
+    "createdAt": "2026-01-14T12:29:19.763Z",
+    "id": "users_1768393759762_h1q72dxxa",
+    "updatedAt": "2026-01-14T12:29:19.763Z"
+  },
+  {
+    "name": "Administrator Pegasus",
+    "email": "admin@pegasus.com",
+    "password": "$2a$10$Mkpty3EalDrh2T7FtCux4uJod58Su/HPVaEra/.m46xpAtbDglVJ.",
+    "role": "member",
+    "avatar": "AP",
+    "createdAt": "2026-01-14T12:35:28.746Z",
+    "id": "users_1768394128746_gxdkxt2cu",
+    "updatedAt": "2026-01-14T12:35:28.746Z"
+  },
+  {
+    "name": "Rare",
+    "email": "",
+    "password": "$2a$10$aD3RHqhkt1Q3ZzwHYimkH.BtjxrwacBsDr6g9.J9xLVFWrZlqYAO.",
+    "role": "member",
+    "avatar": "R",
+    "createdAt": "2026-01-14T12:37:51.042Z",
+    "id": "users_1768394271042_ra5y4pvgn",
+    "updatedAt": "2026-01-14T12:37:51.042Z"
+  }
+]

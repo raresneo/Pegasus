@@ -1,0 +1,16 @@
+[
+  {
+    "title": "Test Booking Integration",
+    "description": "",
+    "startTime": "2026-01-14T15:00:00Z",
+    "endTime": "2026-01-14T16:00:00Z",
+    "resourceId": "res_001",
+    "memberId": "members_1768393759777_4o4jyjqw0",
+    "type": "session",
+    "status": "cancelled",
+    "color": "#3B82F6",
+    "id": "bookings_1768394402747_fbp9k0f3o",
+    "createdAt": "2026-01-14T12:40:02.747Z",
+    "updatedAt": "2026-01-14T12:40:02.844Z"
+  }
+]

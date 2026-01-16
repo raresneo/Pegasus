@@ -1,0 +1,8 @@
+{
+  "name": "Pegasus Core - Professional Asset & Client Management",
+  "description": "A versatile, AI-powered enterprise management system for businesses offering machine-based services. Includes client CRM, asset maintenance, POS, and scheduling.",
+  "requestFramePermissions": [
+    "microphone",
+    "camera"
+  ]
+}
