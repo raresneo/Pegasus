@@ -18,11 +18,11 @@ interface DashboardProps {
 
 const KpiCard = memo(({ title, value, change, changeType, icon: Icon, color, onClick, specialClass = "" }: any) => {
     const isIncrease = changeType === 'increase';
-    
+
     return (
         <div onClick={onClick} className={`glass-card p-8 rounded-[2.5rem] transition-all duration-500 cursor-pointer group relative overflow-hidden border-border-dark ${specialClass}`}>
             <div className="absolute inset-0 gold-shimmer opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-0"></div>
-            
+
             <div className="flex justify-between items-start mb-8 relative z-20">
                 <div className={`p-4 rounded-2xl bg-black/40 border border-white/20 group-hover:border-primary-500/50 group-hover:shadow-[0_0_25px_rgba(212,175,55,0.2)] transition-all duration-500`}>
                     <Icon className={`w-7 h-7 ${color}`} />
@@ -33,7 +33,7 @@ const KpiCard = memo(({ title, value, change, changeType, icon: Icon, color, onC
                     </div>
                 )}
             </div>
-            
+
             <div className="relative z-20">
                 <p className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 group-hover:text-primary-500 transition-colors duration-500 mb-2">{title}</p>
                 <p className="text-4xl font-black text-white tracking-tighter leading-none text-high-contrast">{value}</p>
@@ -114,12 +114,12 @@ const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
     const dateLocale = language === 'ro' ? ro : enUS;
 
     useClickOutside(actionMenuRef, () => setIsActionMenuOpen(false));
-    
+
     const stats = useMemo(() => {
         const today = startOfToday();
         const startCurrMonth = startOfMonth(today);
         const revenueCurr = payments.filter(p => p.amount > 0 && isWithinInterval(parseISO(p.date), { start: startCurrMonth, end: today })).reduce((sum, p) => sum + p.amount, 0);
-        
+
         const lowStockCount = products.filter(p => p.stock <= p.reorderPoint).length;
         const atRiskMembers = members.filter(m => (m.healthScore || 0) < 40).length;
         const activeMembers = members.filter(m => m.membership.status === 'active').length;
@@ -148,20 +148,20 @@ const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
     return (
         <div className="space-y-12 pb-32 animate-fade-in-up">
             <header className="flex flex-col sm:flex-row justify-between items-end gap-6 border-b border-white/10 pb-12">
-                 <div className="flex-1">
-                     <div className="flex items-center gap-4 mb-4">
+                <div className="flex-1">
+                    <div className="flex items-center gap-4 mb-4">
                         <div className="w-3 h-3 rounded-full bg-primary-500 shadow-[0_0_15px_rgba(212,175,55,1)] animate-pulse"></div>
                         <span className="text-[11px] font-black uppercase tracking-[0.5em] text-primary-500">Elite Hub Ecosystem • Chain Node Alpha</span>
-                     </div>
-                     <h1 className="text-7xl font-black tracking-tighter uppercase text-white leading-none italic text-high-contrast">{t('dash.title')}</h1>
-                     <p className="subtext-contrast mt-5 font-bold text-lg tracking-tight flex items-center gap-3">
-                        {t('dash.subtitle')} 
+                    </div>
+                    <h1 className="text-7xl font-black tracking-tighter uppercase text-white leading-none italic text-high-contrast">{t('dash.title')}</h1>
+                    <p className="subtext-contrast mt-5 font-bold text-lg tracking-tight flex items-center gap-3">
+                        {t('dash.subtitle')}
                         <span className="w-1.5 h-1.5 bg-white/20 rounded-full"></span>
                         <span className="text-accent-500 font-black uppercase tracking-widest text-sm">{currentLocationId === 'all' ? 'Arhitectură Globală' : locations.find(l => l.id === currentLocationId)?.name}</span>
-                     </p>
+                    </p>
                 </div>
                 <div className="flex gap-4 relative" ref={actionMenuRef}>
-                    <button 
+                    <button
                         onClick={() => setIsActionMenuOpen(!isActionMenuOpen)}
                         className="bg-primary-500 text-black px-10 py-5 rounded-[1.75rem] font-black uppercase tracking-[0.2em] text-[11px] shadow-2xl hover:scale-105 active:scale-95 transition-all flex items-center gap-3"
                     >
@@ -197,7 +197,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <div className="lg:col-span-2 space-y-8">
-                     <div className="glass-card p-10 rounded-[3.5rem] border border-white/5 shadow-2xl relative overflow-hidden group">
+                    <div className="glass-card p-10 rounded-[3.5rem] border border-white/5 shadow-2xl relative overflow-hidden group">
                         <div className="absolute top-0 right-0 p-12 opacity-5 pointer-events-none group-hover:scale-110 transition-transform duration-1000"><Icons.ChartBarIcon className="w-64 h-64 text-white" /></div>
                         <div className="flex justify-between items-start mb-12">
                             <div>
@@ -209,9 +209,9 @@ const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
                             {stats.visitHistoryData.map((day, i) => (
                                 <div key={i} className="flex-1 flex flex-col items-center gap-4 group/bar">
                                     <div className="w-full relative bg-white/5 rounded-2xl overflow-hidden" style={{ height: '100%' }}>
-                                        <div 
-                                            className="absolute bottom-0 left-0 right-0 bg-primary-500 transition-all duration-1000 ease-out shadow-[0_0_20px_rgba(212,175,55,0.4)] group-hover/bar:bg-primary-400" 
-                                            style={{ height: `${(day.value / 20) * 100}%` }} 
+                                        <div
+                                            className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-primary-600 to-primary-500 transition-all duration-1000 ease-out shadow-[0_0_20px_rgba(212,175,55,0.4)] group-hover/bar:bg-primary-400 group-hover/bar:shadow-[0_0_30px_rgba(212,175,55,0.6)] animate-fade-in-up"
+                                            style={{ height: `${(day.value / 20) * 100}%`, animationDelay: `${i * 100}ms` }}
                                         />
                                     </div>
                                     <span className="text-[10px] font-black uppercase tracking-widest text-white/30 group-hover/bar:text-primary-500">{day.label}</span>
@@ -230,10 +230,10 @@ const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
                     <ActivityStream onNavigate={onNavigate} />
                 </div>
             </div>
-            
+
             <div className="p-12 bg-accent-600 rounded-[3.5rem] shadow-2xl text-white flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden group">
-                 <div className="absolute inset-0 gold-shimmer opacity-10 pointer-events-none"></div>
-                 <div className="flex items-center gap-8 relative z-10">
+                <div className="absolute inset-0 gold-shimmer opacity-10 pointer-events-none"></div>
+                <div className="flex items-center gap-8 relative z-10">
                     <div className="w-20 h-20 bg-white/10 rounded-[2rem] flex items-center justify-center border border-white/20 shadow-xl group-hover:scale-110 transition-transform duration-700">
                         <Icons.SparklesIcon className="w-10 h-10 text-white" />
                     </div>
@@ -241,15 +241,15 @@ const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
                         <h3 className="text-2xl font-black uppercase tracking-tighter leading-tight italic">{t('dash.ai_engine')}</h3>
                         <p className="text-white/70 font-medium text-sm max-w-md mt-1 leading-relaxed">{t('dash.ai_desc')}</p>
                     </div>
-                 </div>
-                 <button onClick={() => handleNavigateTo('reports')} className="relative z-10 px-10 py-5 bg-black text-white rounded-[1.5rem] font-black uppercase tracking-widest text-[10px] shadow-2xl hover:bg-white hover:text-black transition-all duration-500 active:scale-95 border border-white/10">Analiză Heuristică &rarr;</button>
+                </div>
+                <button onClick={() => handleNavigateTo('reports')} className="relative z-10 px-10 py-5 bg-black text-white rounded-[1.5rem] font-black uppercase tracking-widest text-[10px] shadow-2xl hover:bg-white hover:text-black transition-all duration-500 active:scale-95 border border-white/10">Analiză Heuristică &rarr;</button>
             </div>
         </div>
     );
 };
 
 const DonutChartSection = ({ title, data, onNavigate }: any) => (
-    <div onClick={() => { const item = findMenuItemById(menuItems, 'members-hub'); if(item) onNavigate(item); }} className="glass-card p-10 rounded-[3.5rem] border border-white/5 flex flex-col items-center justify-between shadow-2xl group cursor-pointer">
+    <div onClick={() => { const item = findMenuItemById(menuItems, 'members-hub'); if (item) onNavigate(item); }} className="glass-card p-10 rounded-[3.5rem] border border-white/5 flex flex-col items-center justify-between shadow-2xl group cursor-pointer">
         <h3 className="text-[10px] font-black uppercase tracking-[0.5em] text-text-light-secondary dark:text-text-dark-secondary mb-10 text-center">{title}</h3>
         <div className="scale-110 group-hover:scale-125 transition-transform duration-1000">
             <DonutChart data={data} />

@@ -31,11 +31,53 @@ export const menuItems: MenuItem[] = [
     description: 'Calendarul centralizat pentru clase și PT.'
   },
   {
+    id: 'my-profile',
+    label: 'menu.myProfile',
+    icon: 'UserCircleIcon',
+    roles: ['member'],
+    description: 'Profilul meu, progres și informații personale.'
+  },
+  {
+    id: 'my-bookings',
+    label: 'menu.myBookings',
+    icon: 'ClipboardDocumentListIcon',
+    roles: ['member'],
+    description: 'Rezervările mele, istoric și management.'
+  },
+  {
+    id: 'payments',
+    label: 'menu.payments',
+    icon: 'CreditCardIcon',
+    roles: ['member'],
+    description: 'Istoric plăți, facturi și abonamente.'
+  },
+  {
+    id: 'products',
+    label: 'menu.products',
+    icon: 'ShoppingBagIcon',
+    roles: ['member'],
+    description: 'Produse disponibile: suplimente, merchandise.'
+  },
+  {
+    id: 'my-progress',
+    label: 'menu.myProgress',
+    icon: 'ChartBarSquareIcon',
+    roles: ['member'],
+    description: 'Progresul meu: măsurători, poze și grafice de evoluție.'
+  },
+  {
     id: 'pos',
     label: 'menu.pos',
     icon: 'ShoppingCartIcon',
     roles: ['admin', 'trainer'],
     description: 'Vânzare produse și servicii. Gestiune stocuri în timp real.'
+  },
+  {
+    id: 'members-progress',
+    label: 'menu.membersProgress',
+    icon: 'PresentationChartLineIcon',
+    roles: ['admin', 'trainer'],
+    description: 'Progres membri: vizualizare evoluție și rapoarte.'
   },
   {
     id: 'reports',

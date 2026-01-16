@@ -27,8 +27,8 @@ const NavItem = memo(({ item, isActive, isSubmenuOpen, onClick, t, isCollapsed }
       <div
         onClick={() => onClick(item)}
         className={`group flex items-center justify-between px-5 py-4 rounded-[1.25rem] cursor-pointer transition-all duration-500 relative overflow-hidden ${isActive
-            ? 'bg-primary-500/10 text-primary-500 shadow-[inset_0_0_30px_rgba(212,175,55,0.05)] border border-primary-500/20'
-            : 'text-text-dark-secondary/60 hover:bg-white/[0.03] hover:text-white border border-transparent'
+          ? 'bg-primary-500/10 text-primary-500 shadow-[inset_0_0_30px_rgba(212,175,55,0.05)] border border-primary-500/20'
+          : 'text-text-dark-secondary/60 hover:bg-white/[0.03] hover:text-white border border-transparent'
           } ${isCollapsed ? 'justify-center px-0' : ''}`}
         title={isCollapsed ? t(item.label) : ''}
       >
@@ -85,7 +85,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen, currentItem, onNav
   return (
     <>
       <aside
-        className={`fixed inset-y-0 left-0 z-40 bg-background-dark shadow-[60px_0_120px_-20px_rgba(0,0,0,0.8)] border-r border-white/5 transform transition-all duration-700 md:relative md:translate-x-0 md:flex md:flex-col ${isOpen ? 'translate-x-0' : '-translate-x-full'
+        className={`fixed inset-y-0 left-0 z-40 bg-surface-dark shadow-[20px_0_50px_-10px_rgba(0,0,0,0.5)] border-r border-white/5 transform transition-all duration-500 ease-out md:relative md:translate-x-0 md:flex md:flex-col ${isOpen ? 'translate-x-0' : '-translate-x-full'
           } ${isCollapsed ? 'w-20' : 'w-72'}`}
       >
         <button

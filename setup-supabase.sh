@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Supabase Setup Quick Reference
+# Run this after configuring .env.local
+
+echo "📋 Supabase Setup Checklist"
+echo "============================"
+echo ""
+echo "✅ 1. Supabase project created: https://osloloumtsqoykpxfvcp.supabase.co"
+echo "✅ 2. API keys configured in .env.local"
+echo ""
+echo "⏳ NEXT STEPS:"
+echo ""
+echo "3️⃣  Run the database schema in Supabase SQL Editor:"
+echo "   - Go to: https://osloloumtsqoykpxfvcp.supabase.co/project/default/sql"
+echo "   - Click 'New Query'"
+echo "   - Copy ALL contents from: api/supabase/schema.sql"
+echo "   - Paste and click 'RUN' (or Cmd+Enter)"
+echo "   - Should see: ✅ Success. No rows returned"
+echo ""
+echo "4️⃣  Install Supabase dependency:"
+echo "   npm install @supabase/supabase-js"
+echo ""
+echo "5️⃣  Test the connection:"
+echo "   node api/supabase/test-connection.js"
+echo ""
+echo "6️⃣  Start the backend:"
+echo "   npm run start:backend"
+echo ""
+echo "📖 See SUPABASE_QUICKSTART.md for detailed instructions"

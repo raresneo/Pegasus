@@ -1,0 +1,33 @@
+$ vite build
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+vite v5.4.21 building for production...
+transforming...
+✓ 2252 modules transformed.
+x Build failed in 2.08s
+error during build:
+pages/ClientProgressPage.tsx (9:4): "TrendingUpIcon" is not exported by "node_modules/@heroicons/react/24/outline/esm/index.js", imported by "pages/ClientProgressPage.tsx".
+file: /Users/rarespantis/Desktop/pegasus-core---professional-asset-&-client-management/pages/ClientProgressPage.tsx:9:4
+
+ 7:     CameraIcon,
+ 8:     CalendarIcon,
+ 9:     TrendingUpIcon,
+        ^
+10:     TrendingDownIcon,
+11:     ArrowPathIcon
+
+    at getRollupError (/Users/rarespantis/Desktop/pegasus-core---professional-asset-&-client-management/node_modules/rollup/dist/es/shared/parseAst.js:401:45)
+    at error (/Users/rarespantis/Desktop/pegasus-core---professional-asset-&-client-management/node_modules/rollup/dist/es/shared/parseAst.js:397:42)
+    at findVariable (/Users/rarespantis/Desktop/pegasus-core---professional-asset-&-client-management/node_modules/rollup/dist/es/shared/node-entry.js:15141:39)
+    at findVariable (/Users/rarespantis/Desktop/pegasus-core---professional-asset-&-client-management/node_modules/rollup/dist/es/shared/node-entry.js:5688:38)
+    at findVariable (/Users/rarespantis/Desktop/pegasus-core---professional-asset-&-client-management/node_modules/rollup/dist/es/shared/node-entry.js:5688:38)
+    at bind (/Users/rarespantis/Desktop/pegasus-core---professional-asset-&-client-management/node_modules/rollup/dist/es/shared/node-entry.js:5462:40)
+    at bind (/Users/rarespantis/Desktop/pegasus-core---professional-asset-&-client-management/node_modules/rollup/dist/es/shared/node-entry.js:2825:28)
+    at bind (/Users/rarespantis/Desktop/pegasus-core---professional-asset-&-client-management/node_modules/rollup/dist/es/shared/node-entry.js:12172:15)
+    at bind (/Users/rarespantis/Desktop/pegasus-core---professional-asset-&-client-management/node_modules/rollup/dist/es/shared/node-entry.js:2829:23)
+    at bind (/Users/rarespantis/Desktop/pegasus-core---professional-asset-&-client-management/node_modules/rollup/dist/es/shared/node-entry.js:2825:28)
+    at async <anonymous> (/Users/rarespantis/Desktop/pegasus-core---professional-asset-&-client-management/node_modules/rollup/dist/es/shared/node-entry.js:23455:25)
+    at async catchUnfinishedHookActions (/Users/rarespantis/Desktop/pegasus-core---professional-asset-&-client-management/node_modules/rollup/dist/es/shared/node-entry.js:22925:30)
+    at async rollupInternal (/Users/rarespantis/Desktop/pegasus-core---professional-asset-&-client-management/node_modules/rollup/dist/es/shared/node-entry.js:23450:11)
+    at async build (/Users/rarespantis/Desktop/pegasus-core---professional-asset-&-client-management/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:65709:20)
+    at async <anonymous> (/Users/rarespantis/Desktop/pegasus-core---professional-asset-&-client-management/node_modules/vite/dist/node/cli.js:829:11)
+error: script "build" exited with code 1

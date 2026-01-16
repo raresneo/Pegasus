@@ -1,6 +1,6 @@
-
 <!DOCTYPE html>
 <html lang="ro" class="dark">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,21 +13,36 @@
         extend: {
           colors: {
             'primary': {
-              '500': '#D4AF37', // Gold
-              '600': '#b38d29',
+              '500': '#E0AA3E', // Refined Gold
+              '600': '#B8860B',
+            },
+            'secondary': {
+              '500': '#1A1A1A', // Deep Charcoal
+              '900': '#0F0F0F', // Rich Black
             },
             'accent': {
-              '500': '#8B5CF6', // Violet
-              '600': '#7C3AED',
+              '500': '#6366F1', // Electric Indigo
+              '600': '#4F46E5',
             },
-            'background-dark': '#000000',
-            'card-dark': '#0a0a0a',
-            'border-dark': 'rgba(255, 255, 255, 0.15)',
+            'surface': {
+              'dark': '#121212',
+              'card': '#18181b', // Zinc-900 like
+            },
+            'text': {
+              'primary': '#FFFFFF',
+              'secondary': '#A1A1AA', // Zinc-400
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
           },
           animation: {
-            'fade-in-up': 'fadeInUp 0.5s ease-out forwards',
-            'shimmer-gold': 'shimmerGold 3s infinite linear',
+            'fade-in-up': 'fadeInUp 0.3s ease-out forwards',
+            'shimmer-gold': 'shimmerGold 2.5s infinite linear',
             'scan': 'scanLine 3s linear infinite',
+            'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'glow-violet': 'glowViolet 3s ease-in-out infinite',
+            'scale-in': 'scaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards',
           },
           keyframes: {
             fadeInUp: {
@@ -38,59 +53,78 @@
               '0%': { backgroundPosition: '-200% 0' },
               '100%': { backgroundPosition: '200% 0' },
             },
-            scanLine: { '0%': { top: '0%' }, '100%': { top: '100%' } }
+            scanLine: { '0%': { top: '0%' }, '100%': { top: '100%' } },
+            glowViolet: {
+              '0%, 100%': { boxShadow: '0 0 20px rgba(99, 102, 241, 0.3)' },
+              '50%': { boxShadow: '0 0 40px rgba(99, 102, 241, 0.6)' },
+            },
+            scaleIn: {
+              '0%': { transform: 'scale(0.9)', opacity: '0' },
+              '100%': { transform: 'scale(1)', opacity: '1' },
+            }
           }
         }
       }
     }
   </script>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
-  
-  body { 
-    margin: 0; padding: 0; height: 100vh; overflow: hidden; 
-    font-family: 'Plus Jakarta Sans', sans-serif; 
-    background-color: #000;
-    color: #fff;
-    -webkit-font-smoothing: antialiased;
-  }
-  
-  .glass-card { 
-    background: rgba(15, 15, 15, 0.85);
-    backdrop-filter: blur(30px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
-  }
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
-  .glass-card:hover {
-    background: rgba(20, 20, 20, 0.95);
-    border: 1px solid rgba(212, 175, 55, 0.4);
-    box-shadow: 0 0 30px rgba(212, 175, 55, 0.1);
-  }
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      overflow: hidden;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #000;
+      color: #fff;
+      -webkit-font-smoothing: antialiased;
+    }
 
-  .gold-shimmer {
-    background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
-    background-size: 200% 100%;
-    animation: shimmerGold 4s infinite linear;
-  }
+    .glass-card {
+      background: rgba(15, 15, 15, 0.85);
+      backdrop-filter: blur(30px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+    }
 
-  .text-high-contrast {
-    color: #FFFFFF !important;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.9);
-  }
+    .glass-card:hover {
+      background: rgba(20, 20, 20, 0.95);
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      box-shadow: 0 0 30px rgba(212, 175, 55, 0.1);
+    }
 
-  .subtext-contrast {
-    color: #94a3b8 !important;
-    font-weight: 600;
-  }
+    .gold-shimmer {
+      background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+      background-size: 200% 100%;
+      animation: shimmerGold 4s infinite linear;
+    }
 
-  ::-webkit-scrollbar { width: 4px; }
-  ::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 10px; }
-</style>
-<link rel="stylesheet" href="/index.css">
+    .text-high-contrast {
+      color: #FFFFFF !important;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+    }
+
+    .subtext-contrast {
+      color: #94a3b8 !important;
+      font-weight: 600;
+    }
+
+    ::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #D4AF37;
+      border-radius: 10px;
+    }
+  </style>
+  <link rel="stylesheet" href="/index.css">
 </head>
+
 <body class="bg-black text-white overflow-hidden">
   <div id="root"></div>
   <script type="module" src="/index.tsx"></script>
 </body>
+
 </html>

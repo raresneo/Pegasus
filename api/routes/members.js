@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../db');
+const db = require('../supabase/db'); // Use Supabase db layer
 const auth = require('../auth');
+const { v4: uuidv4 } = require('uuid');
 const { validateMemberData, asyncHandler } = require('../middleware/validation');
 const { ApiError } = require('../middleware/errorHandler');
 

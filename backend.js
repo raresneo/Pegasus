@@ -8,9 +8,9 @@ const app = express();
 const port = 3000;
 
 // 1. CORS Configuration
-// Allow requests from the frontend port 8080
+// Allow all origins for development/testing (Vercel -> Localhost)
 app.use(cors({
-  origin: ['http://localhost:8080', 'http://127.0.0.1:8080'],
+  origin: true, // Reflects the request origin
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
@@ -20,7 +20,7 @@ app.use(cors({
 app.use(bodyParser.json());
 app.use(express.json());
 
-// Request Logger
+//Request Logger
 app.use((req, res, next) => {
   console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
   next();

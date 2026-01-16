@@ -4,15 +4,15 @@ import { FunctionDeclaration } from '@google/genai';
 export type UserRole = 'admin' | 'trainer' | 'member';
 
 export interface User {
-  id: string;
-  name: string;
-  email: string;
-  role: UserRole;
-  avatar: string;
-  locationId?: string;
-  rating?: number;
-  reviewCount?: number;
-  password?: string;
+    id: string;
+    name: string;
+    email: string;
+    role: UserRole;
+    avatar: string;
+    locationId?: string;
+    rating?: number;
+    reviewCount?: number;
+    password?: string;
 }
 
 export type CustomFieldType = 'text' | 'number' | 'boolean' | 'date' | 'select';
@@ -28,54 +28,55 @@ export interface CustomFieldDefinition {
 }
 
 export interface Member {
-  id: string;
-  locationId: string;
-  memberType: MemberType;
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  joinDate: string;
-  membership: Membership;
-  avatar: string;
-  loyalty?: LoyaltyStatus;
-  healthScore?: number;
-  address: {
-    line1: string;
-    line2?: string;
-    city: string;
-    state?: string;
-    postalCode?: string;
-    country: string;
-  };
-  emergencyContact: {
-    name: string;
-    relationship?: string;
-    cell: string;
-    email?: string;
-  };
-  notes?: string;
-  visitHistory?: { date: string; locationId: string }[];
-  communications?: Communication[];
-  progressPhotos?: ProgressPhoto[];
-  customFields?: Record<string, any>;
-  dob: string;
-  gender: string;
-  occupation?: string;
-  organization?: string;
-  salesRep?: string;
-  sourcePromotion?: string;
-  referredBy?: string;
-  trainer?: string;
-  tags?: string[];
-  involvementType?: string;
-  title?: string;
-  debtCollection?: {
-      maxAmountToBill: number;
-      deadline: string;
-      isBadDebtor: boolean;
-      isBlacklisted: boolean;
-  };
+    id: string;
+    locationId: string;
+    memberType: MemberType;
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: string;
+    joinDate: string;
+    membership: Membership;
+    avatar: string;
+    loyalty?: LoyaltyStatus;
+    healthScore?: number;
+    address: {
+        line1: string;
+        line2?: string;
+        city: string;
+        state?: string;
+        postalCode?: string;
+        country: string;
+    };
+    emergencyContact: {
+        name: string;
+        relationship?: string;
+        cell: string;
+        email?: string;
+    };
+    notes?: string;
+    visitHistory?: { date: string; locationId: string }[];
+    communications?: Communication[];
+    progressPhotos?: ProgressPhoto[];
+    bodyMeasurements?: BodyMeasurement[];
+    customFields?: Record<string, any>;
+    dob: string;
+    gender: string;
+    occupation?: string;
+    organization?: string;
+    salesRep?: string;
+    sourcePromotion?: string;
+    referredBy?: string;
+    trainer?: string;
+    tags?: string[];
+    involvementType?: string;
+    title?: string;
+    debtCollection?: {
+        maxAmountToBill: number;
+        deadline: string;
+        isBadDebtor: boolean;
+        isBlacklisted: boolean;
+    };
 }
 
 export interface TaxonomyItem {
@@ -108,17 +109,37 @@ export interface OfertaSpeciala {
     descriere: string;
     pret: number;
     tipTinta: 'abonament' | 'serviciu' | 'pachet';
-    tintaId: string; 
-    slug: string; 
+    tintaId: string;
+    slug: string;
     valabilaPanaLa: string;
     textBadge?: string;
 }
 
 export interface ProgressPhoto {
     id: string;
+    memberId: string;
     date: string;
     url: string;
     weight?: number;
+    notes?: string;
+    type?: 'front' | 'side' | 'back' | 'other';
+}
+
+export interface BodyMeasurement {
+    id: string;
+    memberId: string;
+    date: string;
+    weight?: number; // kg
+    bodyFat?: number; // %
+    muscle?: number; // kg or %
+    measurements: {
+        chest?: number; // cm
+        waist?: number;
+        hips?: number;
+        bicep?: number;
+        thigh?: number;
+        calf?: number;
+    };
     notes?: string;
 }
 
@@ -171,47 +192,47 @@ export interface NotificationTemplate {
     channel: 'whatsapp' | 'sms' | 'email';
     content: string;
     autoEnabled: boolean;
-    sendTimeOffset?: number; 
+    sendTimeOffset?: number;
 }
 
 export interface MessageLocalizationSettings {
     language: 'ro' | 'en';
     timeFormat: '12h' | '24h';
-    dateFormat: string; 
+    dateFormat: string;
 }
 
 export interface Location {
-  id: string;
-  name: string;
-  address: string;
-  city: string;
-  phone: string;
-  managerId: string;
-  status: 'active' | 'maintenance' | 'closed';
+    id: string;
+    name: string;
+    address: string;
+    city: string;
+    phone: string;
+    managerId: string;
+    status: 'active' | 'maintenance' | 'closed';
 }
 
 export interface MenuItem {
-  id: string;
-  label: string;
-  icon: string;
-  roles: UserRole[];
-  children?: MenuItem[];
-  description?: string; 
+    id: string;
+    label: string;
+    icon: string;
+    roles: UserRole[];
+    children?: MenuItem[];
+    description?: string;
 }
 
 export interface CopilotAction {
-  functionDeclaration: FunctionDeclaration;
-  handler: (args: any) => Promise<{ message: string; data?: any[] }>;
+    functionDeclaration: FunctionDeclaration;
+    handler: (args: any) => Promise<{ message: string; data?: any[] }>;
 }
 
 export type MembershipStatus = 'active' | 'frozen' | 'cancelled' | 'expired';
 export type MemberType = 'prospect' | 'member';
 
 export interface Membership {
-  tierId: string;
-  status: MembershipStatus;
-  startDate: string;
-  endDate: string;
+    tierId: string;
+    status: MembershipStatus;
+    startDate: string;
+    endDate: string;
 }
 
 export interface Communication {

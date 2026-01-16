@@ -8,6 +8,7 @@ interface AuthContextType {
   login: (email: string, password: string) => Promise<boolean>;
   register: (name: string, email: string, password: string) => Promise<{ success: boolean, message?: string }>;
   logout: () => void;
+  debugLogin: () => Promise<void>;
   loading: boolean;
   token: string | null;
 }
@@ -110,16 +111,38 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     setUser(null);
   };
 
+  const debugLogin = async () => {
+    const mockUser: User = {
+      id: 'debug-user-id',
+      email: 'debug@pegasus.com',
+      name: 'Debug Admin',
+      role: 'admin',
+      createdAt: new Date().toISOString()
+    };
+    const mockToken = 'debug-token-12345';
+
+    localStorage.setItem('pegasus_auth_token', mockToken);
+    localStorage.setItem('pegasus_user', JSON.stringify(mockUser));
+
+    apiClient.setToken(mockToken);
+    setToken(mockToken);
+    setUser(mockUser);
+    setError(null); // Clear errors on debug login
+  };
+
   return (
     <AuthContext.Provider
       value={{
         user,
-        isAuthenticated: !!user && !!token,
+        loading,
+        error,
         login,
         register,
         logout,
-        loading,
-        token
+        debugLogin,
+        isAdmin: user?.role === 'admin',
+        isAuthenticated: !!user && !!token, // Keep isAuthenticated
+        token // Keep token
       }}
     >
       {children}

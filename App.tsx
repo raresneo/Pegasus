@@ -7,6 +7,7 @@ import FitableCopilot from './components/GymMasterCopilot';
 import CommandPalette from './components/CommandPalette';
 import GlobalSearch from './components/GlobalSearch';
 import Footer from './components/Footer';
+import Layout from './components/Layout';
 import ErrorBoundary from './components/ErrorBoundary';
 import { useKeyPress } from './hooks/useKeyPress';
 import { MenuItem, UserRole, CopilotAction, Member } from './types';
@@ -14,6 +15,7 @@ import { menuItems } from './lib/menu';
 import { useAuth } from './context/AuthContext';
 import { useDatabase } from './context/DatabaseContext';
 import { CopilotContext } from './context/CopilotContext';
+import { CartProvider } from './context/CartContext';
 import MembershipSignUpPage from './pages/MembershipSignUpPage';
 import AccessTerminalPage from './pages/AccessTerminalPage';
 import SelfCheckInPage from './pages/SelfCheckInPage';
@@ -36,6 +38,13 @@ const ReferralsPage = lazy(() => import('./pages/ReferralsPage'));
 const StaffManagementPage = lazy(() => import('./pages/StaffManagementPage'));
 const NotificationSettingsPage = lazy(() => import('./pages/NotificationSettingsPage'));
 const AssetsPage = lazy(() => import('./pages/AssetsPage'));
+const ClientDashboard = lazy(() => import('./components/ClientDashboard'));
+const ClientProfilePage = lazy(() => import('./pages/ClientProfilePage'));
+const ClientBookingsPage = lazy(() => import('./pages/ClientBookingsPage'));
+const ClientPaymentsPage = lazy(() => import('./pages/ClientPaymentsPage'));
+const ClientProductsPage = lazy(() => import('./pages/ClientProductsPage'));
+const ClientProgressPage = lazy(() => import('./pages/ClientProgressPage'));
+const AdminProgressPage = lazy(() => import('./pages/AdminProgressPage'));
 
 const filterMenuByRole = (items: MenuItem[], role: UserRole): MenuItem[] => {
   return items
@@ -131,18 +140,37 @@ const AppContent: React.FC = () => {
 
       switch (currentPage?.id) {
         case 'home':
-          return <MemberDashboard member={member} onNavigate={handleNavigation} />;
+          return <ClientDashboard member={member} onNavigate={handleNavigation} />;
         case 'schedule':
           return <SchedulePage navigationContext={{ memberId: member.id }} />;
+        case 'my-profile':
+          return <ClientProfilePage
+            member={member}
+            onBack={() => handleNavigation(userMenu[0])}
+            onNavigate={(item, context) => handleNavigation(item, context)}
+          />;
+        case 'my-bookings':
+          return <ClientBookingsPage
+            member={member}
+            onBack={() => handleNavigation(userMenu[0])}
+          />;
+        case 'payments':
+          return <ClientPaymentsPage
+            member={member}
+            onBack={() => handleNavigation(userMenu[0])}
+          />;
+        case 'products':
+          return <ClientProductsPage
+            member={member}
+            onBack={() => handleNavigation(userMenu[0])}
+          />;
+        case 'my-progress':
+          return <ClientProgressPage
+            member={member}
+            onBack={() => handleNavigation(userMenu[0])}
+          />;
         case 'referrals':
           return <ReferralsPage />;
-        case 'my-profile':
-          return <MemberDetailPage
-            member={member}
-            onBack={() => myProfileMenuItem && handleNavigation(myProfileMenuItem)}
-            onNavigate={(item, context) => handleNavigation(item, context)}
-            scheduleMenuItem={scheduleMenuItem}
-          />;
         default:
           return <PlaceholderPage title={currentPage?.label || 'Bun venit'} />;
       }
@@ -180,43 +208,38 @@ const AppContent: React.FC = () => {
         return <POSPage />;
       case 'assets':
         return <AssetsPage />;
+      case 'members-progress':
+        return <AdminProgressPage onBack={() => handleNavigation(userMenu[0])} onViewMember={handleViewMember} />;
       default:
         return <PlaceholderPage title={currentPage.label} />;
     }
   };
 
   return (
-    <CopilotContext.Provider value={{ actions: copilotActions, registerActions, unregisterActions }}>
-      <div className="flex h-screen bg-black text-white transition-colors duration-300">
-        <Sidebar
-          isOpen={isSidebarOpen}
-          setIsOpen={setSidebarOpen}
+    <CartProvider>
+      <CopilotContext.Provider value={{ actions: copilotActions, registerActions, unregisterActions }}>
+        <Layout
+          menuItems={userMenu}
           currentItem={currentPage || userMenu[0]}
           onNavigate={handleNavigation}
-          menuItems={userMenu}
-        />
-        <div className="flex-1 flex flex-col overflow-hidden">
-          <Header
-            onMenuClick={() => setSidebarOpen(true)}
-            onSearchClick={() => setGlobalSearchOpen(true)}
-            currentItem={currentPage || userMenu[0]}
-          />
-          <main className="flex-1 overflow-x-hidden overflow-y-auto bg-black p-4 sm:p-6 md:p-8">
-            <ErrorBoundary>
-              <Suspense fallback={<LoadingSpinner />}>
-                <div key={currentPage?.id || 'welcome'} className="animate-fade-in-up h-full">
-                  {renderPage()}
-                </div>
-              </Suspense>
-            </ErrorBoundary>
-          </main>
-          <Footer />
-        </div>
+          isSidebarOpen={isSidebarOpen}
+          setSidebarOpen={setSidebarOpen}
+          onSearchClick={() => setGlobalSearchOpen(true)}
+        >
+          <ErrorBoundary>
+            <Suspense fallback={<LoadingSpinner />}>
+              <div key={currentPage?.id || 'welcome'} className="animate-fade-in-up h-full">
+                {renderPage()}
+              </div>
+            </Suspense>
+          </ErrorBoundary>
+        </Layout>
+
         <FitableCopilot isOpen={isCopilotOpen} setIsOpen={setCopilotOpen} />
         <CommandPalette isOpen={isCommandPaletteOpen} setIsOpen={setCommandPaletteOpen} onNavigate={handleNavigation} onViewMember={handleViewMember} />
         <GlobalSearch isOpen={isGlobalSearchOpen} setIsOpen={setGlobalSearchOpen} onNavigate={handleNavigation} onViewMember={handleViewMember} />
-      </div>
-    </CopilotContext.Provider>
+      </CopilotContext.Provider>
+    </CartProvider>
   );
 }
 
