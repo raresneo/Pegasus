@@ -252,7 +252,8 @@ const ProspectsPage: React.FC = () => {
                     </div>
                 </main>
             </div>
-            );
+        </>
+    );
 };
 
-            export default ProspectsPage;
+export default ProspectsPage;
