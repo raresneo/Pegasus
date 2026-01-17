@@ -50,8 +50,8 @@ const Layout: React.FC<LayoutProps> = ({
                 />
 
                 {/* Main Content Area */}
-                <main className="flex-1 overflow-x-hidden overflow-y-auto p-4 pb-24 md:pb-4 md:p-6 scroll-smooth">
-                    <div className="max-w-7xl mx-auto w-full animate-fade-in-up">
+                <main className="flex-1 overflow-x-hidden overflow-y-auto bg-surface-dark scroll-smooth relative">
+                    <div className="w-full h-full animate-fade-in-up">
                         {children}
                     </div>
                 </main>

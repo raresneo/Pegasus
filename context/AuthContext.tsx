@@ -11,6 +11,8 @@ interface AuthContextType {
   debugLogin: () => Promise<void>;
   loading: boolean;
   token: string | null;
+  error: string | null;
+  isAdmin: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -19,6 +21,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   // Initialize auth state from localStorage on mount
   useEffect(() => {
@@ -117,6 +120,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       email: 'debug@pegasus.com',
       name: 'Debug Admin',
       role: 'admin',
+      avatar: 'https://ui-avatars.com/api/?name=Debug+Admin',
       createdAt: new Date().toISOString()
     };
     const mockToken = 'debug-token-12345';

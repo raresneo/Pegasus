@@ -49,24 +49,46 @@ export const useBookings = (options: UseBookingsOptions = {}) => {
         }
     };
 
-    const updateBooking = async (id: string, updates: Partial<Booking>) => {
+    const updateBooking = async (idOrBooking: string | Booking, updatesOrScope: Partial<Booking> | string = {}) => {
         try {
             setLoading(true);
-            const updated = await bookingsAPI.update(id, updates);
+            let id: string;
+            let updates: Partial<Booking>;
+            let scope: string | undefined;
+
+            if (typeof idOrBooking === 'string') {
+                id = idOrBooking;
+                updates = updatesOrScope as Partial<Booking>;
+            } else {
+                id = idOrBooking.id;
+                updates = idOrBooking;
+                scope = updatesOrScope as string;
+            }
+
+            // If scope is provided, we might need a different API call or pass it in query params
+            // For now assuming the API handles it in the body if we pass it, or we just ignore if not supported by backend yet.
+            // If the ID represents an instance (e.g. id_date), we might need to handle that.
+
+            const updated = await bookingsAPI.update(id, { ...updates, scope });
             setBookings(prev => prev.map(b => b.id === id ? updated : b));
             return updated;
         } catch (err: any) {
             setError(err.message || 'Failed to update booking');
-            throw err;
+            console.error(err);
+            throw err; // Re-throw for component handling
         } finally {
             setLoading(false);
         }
     };
 
-    const deleteBooking = async (id: string) => {
+    const deleteBooking = async (idOrBooking: string | Booking, scope?: string) => {
         try {
             setLoading(true);
-            await bookingsAPI.delete(id);
+            const id = typeof idOrBooking === 'string' ? idOrBooking : idOrBooking.id;
+
+            // Pass scope if exists? Assuming API needs it.
+            await bookingsAPI.delete(id, { scope });
+
             setBookings(prev => prev.filter(b => b.id !== id));
         } catch (err: any) {
             setError(err.message || 'Failed to delete booking');

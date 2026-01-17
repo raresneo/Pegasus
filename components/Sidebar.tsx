@@ -85,7 +85,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen, currentItem, onNav
   return (
     <>
       <aside
-        className={`fixed inset-y-0 left-0 z-40 bg-surface-dark shadow-[20px_0_50px_-10px_rgba(0,0,0,0.5)] border-r border-white/5 transform transition-all duration-500 ease-out md:relative md:translate-x-0 md:flex md:flex-col ${isOpen ? 'translate-x-0' : '-translate-x-full'
+        className={`fixed inset-y-0 left-0 z-40 bg-surface-dark/95 backdrop-blur-xl shadow-[20px_0_50px_-10px_rgba(0,0,0,0.5)] border-r border-white/5 transform transition-all duration-500 ease-out md:relative md:translate-x-0 md:flex md:flex-col ${isOpen ? 'translate-x-0' : '-translate-x-full'
           } ${isCollapsed ? 'w-20' : 'w-72'}`}
       >
         <button

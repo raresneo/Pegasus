@@ -13,6 +13,7 @@ export interface User {
     rating?: number;
     reviewCount?: number;
     password?: string;
+    createdAt?: string;
 }
 
 export type CustomFieldType = 'text' | 'number' | 'boolean' | 'date' | 'select';

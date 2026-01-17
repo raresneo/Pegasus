@@ -168,18 +168,18 @@ const SchedulePage: React.FC<SchedulePageProps> = ({ navigationContext }) => {
         }
     };
 
-    const handleRecurringConfirm = (scope: EditScope) => {
+    const handleRecurringConfirm = async (scope: EditScope) => {
         if (bookingToEdit) {
-            if (recurringAction === 'save') {
-                const success = updateBooking(bookingToEdit, scope);
-                if (!success) {
-                    notify("Conflict detectat în serie! Unele instanțe nu au putut fi salvate.", "warning");
-                } else {
+            try {
+                if (recurringAction === 'save') {
+                    await updateBooking(bookingToEdit, scope);
                     notify("Seria de programări a fost actualizată.", "success");
+                } else {
+                    await deleteBooking(bookingToEdit, scope);
+                    notify("Seria a fost eliminată.", "info");
                 }
-            } else {
-                deleteBooking(bookingToEdit, scope);
-                notify("Seria a fost eliminată.", "info");
+            } catch (e) {
+                notify("A apărut o eroare la salvarea seriei.", "error");
             }
         }
         setIsRecurringModalOpen(false);
@@ -334,25 +334,40 @@ const SchedulePage: React.FC<SchedulePageProps> = ({ navigationContext }) => {
                 onClose={() => setResourceFilterOpen(false)}
             />
             <div className="flex-1 flex flex-col overflow-hidden">
-                <header className="flex-shrink-0 p-4 border-b border-border-dark flex flex-col sm:flex-row justify-between items-center gap-4">
-                    <div className="flex items-center gap-4">
-                        <div className="flex items-center rounded-md border border-border-dark">
-                            <button onClick={handlePrev} className="p-2 border-r border-border-dark"><Icons.ChevronLeftIcon className="w-5 h-5" /></button>
-                            <button onClick={handleToday} className="px-4 py-2 text-sm font-semibold">Azi</button>
-                            {/* FIX: Corrected Icons.Icons.ChevronRightIcon to Icons.ChevronRightIcon */}
-                            <button onClick={handleNext} className="p-2 border-l border-border-dark"><Icons.ChevronRightIcon className="w-5 h-5" /></button>
+                <header className="flex-shrink-0 p-4 border-b border-border-dark flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 w-full lg:w-auto">
+                        <div className="flex items-center rounded-md border border-border-dark bg-card-dark">
+                            <button onClick={handlePrev} className="p-2 border-r border-border-dark hover:bg-white/5 active:bg-white/10 transition-colors"><Icons.ChevronLeftIcon className="w-5 h-5" /></button>
+                            <button onClick={handleToday} className="px-4 py-2 text-sm font-semibold hover:bg-white/5 active:bg-white/10 transition-colors">Azi</button>
+                            <button onClick={handleNext} className="p-2 border-l border-border-dark hover:bg-white/5 active:bg-white/10 transition-colors"><Icons.ChevronRightIcon className="w-5 h-5" /></button>
                         </div>
-                        <h2 className="text-xl font-bold">{currentDate.toLocaleString('ro-RO', { month: 'long', year: 'numeric' })}</h2>
+                        <h2 className="text-lg sm:text-xl font-bold capitalize text-primary-500">{currentDate.toLocaleString('ro-RO', { month: 'long', year: 'numeric' })}</h2>
                     </div>
-                    <div className="flex items-center gap-2 flex-wrap justify-center">
-                        <button onClick={() => window.print()} className="p-2 rounded-md bg-card-dark border border-border-dark no-print"><Icons.PrinterIcon className="w-5 h-5" /></button>
-                        <button onClick={() => setResourceFilterOpen(true)} className="md:hidden p-2 rounded-md bg-card-dark border border-border-dark"><Icons.AdjustmentsIcon className="w-5 h-5" /></button>
-                        <div className="flex items-center bg-background-dark rounded-md p-1">
-                            {(['day', 'week', 'month', 'list'] as ViewType[]).map(v => (
-                                <button key={v} onClick={() => setView(v)} className={`px-3 py-1 text-sm font-semibold rounded capitalize ${view === v ? 'bg-card-dark shadow-sm' : ''}`}>{v}</button>
-                            ))}
+
+                    <div className="flex items-center gap-2 flex-wrap w-full lg:w-auto justify-between sm:justify-end">
+                        {/* Mobile: Sidebar Toggle */}
+                        <button onClick={() => setScheduleSidebarOpen(true)} className="md:hidden p-2 rounded-md bg-card-dark border border-border-dark hover:bg-white/5 text-text-secondary"><Icons.CalendarIcon className="w-5 h-5" /></button>
+
+                        <div className="flex items-center gap-2">
+                            {/* Desktop: Print */}
+                            <button onClick={() => window.print()} className="hidden sm:block p-2 rounded-md bg-card-dark border border-border-dark hover:bg-white/5 text-text-secondary no-print"><Icons.PrinterIcon className="w-5 h-5" /></button>
+
+                            {/* Mobile Filters Trigger */}
+                            <button onClick={() => setResourceFilterOpen(true)} className="md:hidden p-2 rounded-md bg-card-dark border border-border-dark hover:bg-white/5 text-text-secondary"><Icons.AdjustmentsIcon className="w-5 h-5" /></button>
+
+                            {/* View Switcher */}
+                            <div className="flex items-center bg-background-dark rounded-md p-1 border border-border-dark overflow-x-auto max-w-full">
+                                {(['day', 'week', 'month', 'list'] as ViewType[]).map(v => (
+                                    <button
+                                        key={v}
+                                        onClick={() => setView(v)}
+                                        className={`px-3 py-1 text-sm font-semibold rounded capitalize transition-all whitespace-nowrap ${view === v ? 'bg-primary-500 text-black shadow-lg' : 'text-text-secondary hover:text-white'}`}
+                                    >
+                                        {v === 'list' ? 'Agendă' : v === 'week' ? 'Săpt' : v === 'month' ? 'Lună' : 'Zi'}
+                                    </button>
+                                ))}
+                            </div>
                         </div>
-                        <button onClick={() => setScheduleSidebarOpen(true)} className="md:hidden p-2 rounded-md bg-card-dark border border-border-dark"><Icons.CalendarIcon className="w-5 h-5" /></button>
                     </div>
                 </header>
                 <div className="flex-1 relative printable-area">
